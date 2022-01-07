@@ -2,10 +2,10 @@ package com.github.yannicklamprecht.modernchat.modernchat;
 
 import com.github.yannicklamprecht.modernchat.modernchat.config.ConfigLoader;
 import com.github.yannicklamprecht.modernchat.modernchat.config.ModernChatConfig;
+import com.github.yannicklamprecht.modernchat.modernchat.preprocessing.PlaceholderApiPreprocessor;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.DefaultProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.JobsProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.LuckpermsProvider;
-import com.github.yannicklamprecht.modernchat.modernchat.resolver.PlaceholderApiResolver;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -33,7 +33,7 @@ public final class ModernChat extends JavaPlugin {
         }
 
         var provider = new HashSet<TemplateProvider>();
-        var resolver = new HashSet<TemplateResolver>();
+        var preprocessor = new HashSet<FormatPreprocessor>();
 
         provider.add(new DefaultProvider());
 
@@ -50,10 +50,10 @@ public final class ModernChat extends JavaPlugin {
 
         if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
             LOGGER.info("PAPI Integration added.");
-            resolver.add(new PlaceholderApiResolver());
+            preprocessor.add(new PlaceholderApiPreprocessor());
         }
 
-        var chatListener = new ChatListener(provider, resolver, config.chatformat());
+        var chatListener = new ChatListener(provider, preprocessor, config.chatformat());
         getServer().getPluginManager().registerEvents(chatListener, this);
     }
 
