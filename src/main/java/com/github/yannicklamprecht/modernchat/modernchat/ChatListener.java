@@ -9,8 +9,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.jetbrains.annotations.NotNull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,13 +18,11 @@ public record ChatListener(
         Set<TemplateProvider> templateProviders,
         Set<FormatPreprocessor> preprocessors,
         String format) implements Listener {
-    private static final Logger LOGGER = LoggerFactory.getLogger(ChatListener.class);
 
     @EventHandler
     public void onBetterChat(AsyncChatEvent asyncChatEvent) {
         asyncChatEvent.renderer((source, sourceDisplayName, message, viewer) -> {
                     var messageFormat = format;
-
                     for (FormatPreprocessor preprocessor : preprocessors) {
                         messageFormat = preprocessor.resolve(source, messageFormat);
                     }
