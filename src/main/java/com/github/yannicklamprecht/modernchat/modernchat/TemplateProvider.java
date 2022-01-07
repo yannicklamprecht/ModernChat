@@ -8,6 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
+@FunctionalInterface
 public interface TemplateProvider {
     Set<Template> templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer);
 }

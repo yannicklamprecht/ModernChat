@@ -11,22 +11,18 @@ plugins {
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://papermc.io/repo/repository/maven-public/")
-    }
-
-    maven {
-        url = uri("https://oss.sonatype.org/content/groups/public/")
-    }
-
-    maven {
-        url = uri("https://repo.maven.apache.org/maven2/")
-    }
+    maven("https://papermc.io/repo/repository/maven-public/")
+    maven("https://oss.sonatype.org/content/groups/public/")
+    maven("https://repo.maven.apache.org/maven2/")
+    maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
+    maven("https://jitpack.io")
 }
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("net.luckperms:api:5.3")
+    compileOnly("me.clip:placeholderapi:2.11.1")
+    compileOnly("com.github.Zrips:Jobs:4.17.2")
 
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
