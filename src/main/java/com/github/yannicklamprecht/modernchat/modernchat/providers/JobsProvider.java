@@ -9,7 +9,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public class Jobs implements TemplateProvider {
+public class JobsProvider implements TemplateProvider {
     @Override
     public Set<Template> templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
         return Set.of(

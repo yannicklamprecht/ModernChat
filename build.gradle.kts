@@ -10,7 +10,7 @@ plugins {
 }
 
 repositories {
-    mavenLocal()
+    mavenCentral()
     maven {
         url = uri("https://papermc.io/repo/repository/maven-public/")
     }
@@ -26,7 +26,14 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
+    compileOnly("net.luckperms:api:5.3")
+
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
+    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
+
+
 }
 
 group = "com.github.yannicklamprecht.modernchat"
@@ -46,9 +53,6 @@ tasks {
         options.encoding = "UTF-8"
     }
     runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.18")
+        minecraftVersion("1.18.1")
     }
 }
