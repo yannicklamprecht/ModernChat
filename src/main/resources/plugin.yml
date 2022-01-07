@@ -1,0 +1,4 @@
+name: ModernChat
+version: '${project.version}'
+main: com.github.yannicklamprecht.modernchat.modernchat.ModernChat
+api-version: 1.18
