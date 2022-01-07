@@ -22,7 +22,9 @@ dependencies {
     compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
     compileOnly("net.luckperms:api:5.3")
     compileOnly("me.clip:placeholderapi:2.11.1")
-    compileOnly("com.github.Zrips:Jobs:4.17.2")
+    compileOnly("com.github.Zrips:Jobs:v4.17.2"){
+        isTransitive = false
+    }
 
     implementation("net.kyori:adventure-text-minimessage:4.1.0-SNAPSHOT")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")

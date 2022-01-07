@@ -1,23 +1,24 @@
 package com.github.yannicklamprecht.modernchat.modernchat;
 
-import com.gamingmesh.jobs.Jobs;
 import com.github.yannicklamprecht.modernchat.modernchat.config.ConfigLoader;
 import com.github.yannicklamprecht.modernchat.modernchat.config.ModernChatConfig;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.DefaultProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.JobsProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.LuckpermsProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.resolver.PlaceholderApiResolver;
-import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.HashSet;
 
 public final class ModernChat extends JavaPlugin {
+    private final Logger LOGGER = LoggerFactory.getLogger(ModernChat.class);
+
     @Override
     public void onEnable() {
 
@@ -34,21 +35,21 @@ public final class ModernChat extends JavaPlugin {
         var provider = new HashSet<TemplateProvider>();
         var resolver = new HashSet<TemplateResolver>();
 
+        provider.add(new DefaultProvider());
+
         RegisteredServiceProvider<LuckPerms> luckPermsRegisteredServiceProvider = Bukkit.getServicesManager().getRegistration(LuckPerms.class);
         if (luckPermsRegisteredServiceProvider != null) {
+            LOGGER.info("Luckperms Integration added.");
             provider.add(new LuckpermsProvider(luckPermsRegisteredServiceProvider.getProvider()));
         }
 
-        RegisteredServiceProvider<Jobs> jobsRegisteredServiceProvider = Bukkit.getServicesManager().getRegistration(Jobs.class);
-        if (jobsRegisteredServiceProvider != null) {
+        if (getServer().getPluginManager().getPlugin("Jobs") != null) {
+            LOGGER.info("Jobs Integration added.");
             provider.add(new JobsProvider());
         }
 
-        provider.add(new JobsProvider());
-        provider.add(new DefaultProvider());
-
-        RegisteredServiceProvider<PlaceholderAPIPlugin> placeholderAPIPluginRegisteredServiceProvider = Bukkit.getServicesManager().getRegistration(PlaceholderAPIPlugin.class);
-        if (placeholderAPIPluginRegisteredServiceProvider != null) {
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            LOGGER.info("PAPI Integration added.");
             resolver.add(new PlaceholderApiResolver());
         }
 

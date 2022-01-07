@@ -39,9 +39,11 @@ public record ChatListener(
     }
 
     private Function<String, ComponentLike> resolveFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
-        return (name) -> templateResolvers.stream()
-                .map(templateResolver -> templateResolver.resolve(name, source, sourceDisplayName, message, viewer))
-                .findFirst()
-                .orElse(null);
+        return (name) -> {
+            for (TemplateResolver templateResolver : templateResolvers) {
+                return templateResolver.resolve(name, source, sourceDisplayName, message, viewer);
+            }
+            return null;
+        };
     }
 }
