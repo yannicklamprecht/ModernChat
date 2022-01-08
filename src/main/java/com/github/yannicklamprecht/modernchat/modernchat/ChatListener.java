@@ -3,6 +3,7 @@ package com.github.yannicklamprecht.modernchat.modernchat;
 import io.papermc.paper.event.player.AsyncChatEvent;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.minimessage.placeholder.PlaceholderResolver;
 import org.bukkit.entity.Player;
@@ -13,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 public record ChatListener(
         Set<TemplateProvider> templateProviders,
@@ -28,11 +30,16 @@ public record ChatListener(
                     }
 
                     return MiniMessage.builder()
+                            .postProcessor(this::postProcess)
                             .placeholderResolver(templatesFor(source, sourceDisplayName, message, viewer))
                             .build().parse(messageFormat);
                 }
 
         );
+    }
+
+    private Component postProcess(Component component){
+        return component.replaceText(TextReplacementConfig.builder().match(Pattern.compile(" {2,}")).replacement(" ").build());
     }
 
     private PlaceholderResolver templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {

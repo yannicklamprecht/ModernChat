@@ -20,11 +20,18 @@ public class JobsProvider implements TemplateProvider {
         JobsPlayer jobsPlayer = Jobs.getPlayerManager().getJobsPlayer(source.getUniqueId());
 
         var templates = new HashSet<Placeholder<?>>();
-        templates.add(Placeholder.component("job-level", Component.text(jobsPlayer.getTotalLevels())));
 
-        jobsPlayer.getJobProgression().stream().max(Comparator.comparingInt(JobProgression::getLevel)).ifPresent(jobProgression -> {
-            templates.add(Placeholder.component("highest-job", Component.text(jobProgression.getJob().getJobFullName())));
-        });
+        if (jobsPlayer != null) {
+            templates.add(Placeholder.component("job-level", Component.text(jobsPlayer.getTotalLevels())));
+            var progression = jobsPlayer.getJobProgression().stream().max(Comparator.comparingInt(JobProgression::getLevel));
+            progression.ifPresentOrElse(
+                    jobProgression -> templates.add(Placeholder.component("highest-job", Component.text(jobProgression.getJob().getJobFullName()))),
+                    () -> templates.add(Placeholder.component("highest-job", Component.empty()))
+            );
+        } else {
+            Placeholder.component("job-level", Component.empty());
+            Placeholder.component("highest-job", Component.empty());
+        }
         return PlaceholderResolver.placeholders(templates);
     }
 }
