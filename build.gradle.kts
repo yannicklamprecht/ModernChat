@@ -12,24 +12,28 @@ plugins {
 repositories {
     mavenCentral()
     maven("https://papermc.io/repo/repository/maven-public/")
-    maven("https://oss.sonatype.org/content/groups/public/")
+    maven("https://oss.sonatype.org/content/groups/public/") {
+            name = "sonatype-oss-snapshots"
+    }
     maven("https://repo.maven.apache.org/maven2/")
     maven("https://repo.extendedclip.com/content/repositories/placeholderapi/")
     maven("https://jitpack.io")
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.18.1-R0.1-SNAPSHOT")
-    compileOnly("net.luckperms:api:5.3")
-    compileOnly("me.clip:placeholderapi:2.11.1")
-    compileOnly("com.github.Zrips:Jobs:v4.17.2"){
+    implementation(libs.jodatime)
+
+    compileOnly(libs.paperapi)
+    compileOnly(libs.luckperms)
+    compileOnly(libs.placeholderapi)
+    compileOnly(libs.jobs){
         isTransitive = false
     }
 
-    implementation("net.kyori:adventure-text-minimessage:4.10.0-SNAPSHOT")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.13.1")
-    implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.13.1")
-    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.13.1")
+    implementation(libs.minimessage)
+    implementation(libs.bundles.jackson)
+
+    testImplementation(libs.bundles.junit)
 
 
 }
@@ -52,5 +56,8 @@ tasks {
     }
     runServer {
         minecraftVersion("1.18.1")
+    }
+    test {
+        useJUnitPlatform()
     }
 }
