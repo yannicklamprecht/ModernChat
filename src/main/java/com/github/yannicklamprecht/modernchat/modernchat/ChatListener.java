@@ -5,7 +5,8 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextReplacementConfig;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.placeholder.PlaceholderResolver;
+import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,8 +32,8 @@ public record ChatListener(
 
                     return MiniMessage.builder()
                             .postProcessor(this::postProcess)
-                            .placeholderResolver(templatesFor(source, sourceDisplayName, message, viewer))
-                            .build().parse(messageFormat);
+                            .tags(templatesFor(source, sourceDisplayName, message, viewer))
+                            .build().deserialize(messageFormat);
                 }
 
         );
@@ -42,11 +43,11 @@ public record ChatListener(
         return component.replaceText(TextReplacementConfig.builder().match(Pattern.compile(" {2,}")).replacement(" ").build());
     }
 
-    private PlaceholderResolver templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
-        List<PlaceholderResolver> templates = new ArrayList<>();
+    private TagResolver templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
+        List<TagResolver> templates = new ArrayList<>();
         for (TemplateProvider templateProvider : templateProviders) {
             templates.add(templateProvider.templatesFor(source, sourceDisplayName, message, viewer));
         }
-        return PlaceholderResolver.combining(templates);
+        return TagResolver.resolver(templates);
     }
 }
