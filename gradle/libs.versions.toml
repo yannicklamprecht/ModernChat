@@ -4,7 +4,7 @@ junit = "5.8.2"
 luckperms = "5.3"
 papi = "2.11.1"
 jobs = "v4.17.2"
-adventureText = "4.10.0-SNAPSHOT"
+adventureText = "4.10.0"
 jackson = "2.13.1"
 paper = "1.18.1-R0.1-SNAPSHOT"
 
