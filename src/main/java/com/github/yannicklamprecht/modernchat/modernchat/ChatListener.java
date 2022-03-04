@@ -29,21 +29,14 @@ public record ChatListener(
                     for (FormatPreprocessor preprocessor : preprocessors) {
                         messageFormat = preprocessor.resolve(source, messageFormat);
                     }
-
-                    return MiniMessage.builder()
-                            .postProcessor(this::postProcess)
-                            .tags(templatesFor(source, sourceDisplayName, message, viewer))
-                            .build().deserialize(messageFormat);
+                    return MiniMessage.miniMessage()
+                            .deserialize(messageFormat, templatesFor(source, sourceDisplayName, message, viewer));
                 }
-
         );
     }
 
-    private Component postProcess(Component component){
-        return component.replaceText(TextReplacementConfig.builder().match(Pattern.compile(" {2,}")).replacement(" ").build());
-    }
-
-    private TagResolver templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName, @NotNull Component message, @NotNull Audience viewer) {
+    private TagResolver templatesFor(@NotNull Player source, @NotNull Component sourceDisplayName,
+                                     @NotNull Component message, @NotNull Audience viewer) {
         List<TagResolver> templates = new ArrayList<>();
         for (TemplateProvider templateProvider : templateProviders) {
             templates.add(templateProvider.templatesFor(source, sourceDisplayName, message, viewer));

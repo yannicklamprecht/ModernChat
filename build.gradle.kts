@@ -55,7 +55,7 @@ tasks {
         options.encoding = "UTF-8"
     }
     runServer {
-        minecraftVersion("1.18.1")
+        minecraftVersion("1.18.2")
     }
     test {
         useJUnitPlatform()
