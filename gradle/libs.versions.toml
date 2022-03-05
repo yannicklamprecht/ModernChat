@@ -4,9 +4,8 @@ junit = "5.8.2"
 luckperms = "5.3"
 papi = "2.11.1"
 jobs = "v4.17.2"
-adventureText = "4.10.0"
 jackson = "2.13.1"
-paper = "1.18.1-R0.1-SNAPSHOT"
+paper = "1.18.2-R0.1-SNAPSHOT"
 
 [libraries]
 jodatime = { group = "joda-time", name = "joda-time", version.ref = "joda" }
@@ -14,7 +13,6 @@ paperapi = { group = "io.papermc.paper", name = "paper-api", version.ref = "pape
 luckperms = { group = "net.luckperms", name = "api", version.ref = "luckperms" }
 placeholderapi = { group = "me.clip", name = "placeholderapi", version.ref = "papi" }
 jobs = { group = "com.github.Zrips", name = "Jobs", version.ref = "jobs" }
-minimessage = { group = "net.kyori", name = "adventure-text-minimessage", version.ref = "adventureText" }
 
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson" }
 jackson-dataformat = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml", version.ref = "jackson" }

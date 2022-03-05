@@ -30,7 +30,6 @@ dependencies {
         isTransitive = false
     }
 
-    implementation(libs.minimessage)
     implementation(libs.bundles.jackson)
 
     testImplementation(libs.bundles.junit)
