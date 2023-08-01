@@ -3,4 +3,3 @@
  */
 
 rootProject.name = "ModernChat"
-enableFeaturePreview("VERSION_CATALOGS")

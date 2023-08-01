@@ -16,7 +16,8 @@ public class DefaultProvider implements TemplateProvider {
                 Placeholder.component("name", sourceDisplayName),
                 Placeholder.component("display-name", source.displayName()),
                 Placeholder.component("uuid", Component.text(source.getUniqueId().toString())),
-                Placeholder.component("message", message)
+                Placeholder.component("message", message),
+                Placeholder.component("custom-player-name", sourceDisplayName)
         );
     }
 }

@@ -4,8 +4,8 @@ junit = "5.8.2"
 luckperms = "5.3"
 papi = "2.11.1"
 jobs = "v4.17.2"
-jackson = "2.13.1"
-paper = "1.18.2-R0.1-SNAPSHOT"
+jackson = "2.15.2"
+paper = "1.20.1-R0.1-SNAPSHOT"
 
 [libraries]
 jodatime = { group = "joda-time", name = "joda-time", version.ref = "joda" }
