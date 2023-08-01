@@ -6,6 +6,9 @@ import com.github.yannicklamprecht.modernchat.modernchat.preprocessing.Placehold
 import com.github.yannicklamprecht.modernchat.modernchat.providers.DefaultProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.JobsProvider;
 import com.github.yannicklamprecht.modernchat.modernchat.providers.LuckpermsProvider;
+import net.kyori.adventure.key.Key;
+import net.kyori.adventure.translation.GlobalTranslator;
+import net.kyori.adventure.translation.TranslationRegistry;
 import net.luckperms.api.LuckPerms;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -14,7 +17,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.HashSet;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public final class ModernChat extends JavaPlugin {
     private final Logger LOGGER = LoggerFactory.getLogger(ModernChat.class);
@@ -52,6 +58,14 @@ public final class ModernChat extends JavaPlugin {
             LOGGER.info("PAPI Integration added.");
             preprocessor.add(new PlaceholderApiPreprocessor());
         }
+
+
+
+        TranslationRegistry message = TranslationRegistry.create(Key.key("message"));
+        message.registerAll(Locale.GERMAN, ResourceBundle.getBundle("benis", Locale.GERMAN), true);
+        message.registerAll(Locale.ENGLISH, ResourceBundle.getBundle("benis", Locale.ENGLISH), true);
+        message.defaultLocale(Locale.GERMAN);
+        GlobalTranslator.translator().addSource(message);
 
         var chatListener = new ChatListener(provider, preprocessor, config.chatformat());
         getServer().getPluginManager().registerEvents(chatListener, this);

@@ -6,7 +6,7 @@ plugins {
     java
     `maven-publish`
     id("xyz.jpenilla.run-paper") version "1.0.6"
-    id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -54,7 +54,7 @@ tasks {
         options.encoding = "UTF-8"
     }
     runServer {
-        minecraftVersion("1.18.2")
+        minecraftVersion("1.20.1")
     }
     test {
         useJUnitPlatform()
